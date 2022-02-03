@@ -5,7 +5,7 @@ class WordCount
 {
     public function readFile($url)
     {
-        $hashSet = [];
+        $hashMap = [];
         $handle = fopen($url, 'r');
         while ($line = fgets($handle)) {
             $words = [];
@@ -14,13 +14,13 @@ class WordCount
             foreach ($words[0] as $word) {
                 $word = strtolower($word);
                 if (!empty($word) && !in_array($word, $this->getExcludedWord())) {
-                    $hashSet[$word] = isset($hashSet[$word]) ? $hashSet[$word] + 1 : 1;
+                    $hashMap[$word] = isset($hashMap[$word]) ? $hashMap[$word] + 1 : 1;
                 }
 
             }
         }
-        arsort($hashSet);
-        return array_slice(array_keys($hashSet), 0, -(count($hashSet) - 15));
+        arsort($hashMap);
+        return array_slice(array_keys($hashMap), 0, -(count($hashMap) - 15));
     }
 
     public function getExcludedWord()
